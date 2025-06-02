@@ -21,12 +21,19 @@ def upload_csv(file=None, filename=None):
     except Exception as e:
         return f"Error: {e}"
 
-def describe():
-    """Returns a description of the dataset"""
-    df = state["df"]
+
+def describe(df: pd.DataFrame):
+    """
+    Takes a pandas dataframe as input
+    Returns a description of the dataset.
+
+    input: pd.DataFrame
+    output: dict
+    """
     if df is None:
         return "No dataset uploaded."
     return df.describe().to_dict()
+
 
 def missing():
     """Returns missing value counts"""
@@ -34,6 +41,7 @@ def missing():
     if df is None:
         return "No dataset uploaded."
     return df.isnull().sum().to_dict()
+
 
 def info():
     """Returns info about the dataset"""
@@ -43,6 +51,7 @@ def info():
     buf = StringIO()
     df.info(buf=buf)
     return buf.getvalue()
+
 
 # Create and run the MCP server
 if __name__ == "__main__":
