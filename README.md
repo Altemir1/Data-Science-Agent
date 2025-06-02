@@ -12,3 +12,16 @@ short_description: Agent implements basic functions of Data Scientist
 ---
 
 An example chatbot using [Gradio](https://gradio.app), [`huggingface_hub`](https://huggingface.co/docs/huggingface_hub/v0.22.2/en/index), and the [Hugging Face Inference API](https://huggingface.co/docs/api-inference/index).
+
+TODO:
+[ ] brainstorm
+[ ] test functions
+[ ] more dataframe functions
+
+rakhat:
+[ ] gradio components
+[ ] chatbot 
+
+altem:
+[ ] connecting gradio client to mcp
+[ ] project structure
