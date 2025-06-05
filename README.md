@@ -27,12 +27,8 @@ A Gradio-based web application for data analysis with MCP (Machine Control Proto
 
 ```
 .
-├── src/
-│   ├── tools/
-│   │   └── data_tools.py    # Data analysis tools
-│   ├── app/
-│   │   └── gradio_app.py    # Gradio web interface
-│   └── main.py              # Application entry point
+├── mcp_tools.py     # Data analysis tools
+├── app.py           # Application entry point
 ├── requirements.txt
 └── README.md
 ```
@@ -54,7 +50,7 @@ A Gradio-based web application for data analysis with MCP (Machine Control Proto
 
 3. Run the application:
    ```bash
-   python src/main.py
+   gradio app.py
    ```
 
 The application will be available at http://localhost:7860 by default.
@@ -72,14 +68,15 @@ The application will be available at http://localhost:7860 by default.
 The application runs with MCP server enabled, allowing for programmatic control and integration with other tools.
 
 TODO:
-[ ] brainstorm
-[ ] test functions
-[ ] more dataframe functions
+- [x] brainstorm
+- [ ] test functions
+- [ ] more dataframe functions
 
 rakhat:
-[ ] gradio components
-[ ] chatbot 
+- [x] gradio components
+- [x] connect to google docs
+- [x] chatbot 
 
 altem:
-[ ] connecting gradio client to mcp
-[ ] project structure
+- [ ] connecting gradio client to mcp
+- [ ] project structure
