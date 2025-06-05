@@ -1,2 +1,5 @@
 huggingface_hub==0.32.3
 gradio==5.32.0
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
