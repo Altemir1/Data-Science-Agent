@@ -1,5 +1,5 @@
 ---
-title: Data Science Agent
+title: Google Sheet Assistant
 emoji: 💬
 colorFrom: yellow
 colorTo: purple
@@ -11,7 +11,7 @@ license: apache-2.0
 short_description: Agent implements basic functions of Data Scientist
 ---
 
-# Data Science Agent
+# Google Sheet Assistant
 
 A Gradio-based web application for data analysis with MCP (Machine Control Protocol) support. This tool provides an interactive interface for analyzing CSV datasets with various statistical tools.
 
