@@ -1,4 +1,10 @@
-
+---
+title: MCP Google Sheets
+sdk: gradio
+sdk_version: 5.32.0
+app_file: app.py
+license: mit
+---
 
 # Google Sheet Assistant
 
@@ -65,7 +71,6 @@ rakhat:
 - [x] gradio components
 - [x] connect to google docs
 - [x] chatbot 
+- [ ] deploy
 
 altem:
-- [ ] connecting gradio client to mcp
-- [ ] project structure
