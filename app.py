@@ -2,27 +2,18 @@ import pandas as pd
 import gradio as gr
 import json
 import os
-from pathlib import Path
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
-# Environment configuration
-ENV = os.environ.get('ENV', 'dev')  # Default to 'dev' if not set
-GOOGLE_API = os.environ.get('GOOGLE_API')
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets',
           'https://www.googleapis.com/auth/drive']
 
-def get_credentials_path():
-    """Get the path to credentials.json based on environment"""
-    if ENV == 'prod':
-        if not GOOGLE_API:
-            raise ValueError("GOOGLE_API environment variable must be set in production")
-        return GOOGLE_API
-    else:  # dev environment
-        return 'credentials.json'
+# Environment variables
+ENV = os.environ.get('ENV', 'dev')  # Default to 'dev' if not set
+GOOGLE_API = os.environ.get('GOOGLE_API')  # Will be None if not set
 
 
 def upload_csv(file=None):
@@ -49,9 +40,16 @@ def create_services(creds):
 def auth(token):
     creds = None
     try:
-        credentials_path = get_credentials_path()
-        flow = InstalledAppFlow.from_client_secrets_file(
-            credentials_path, SCOPES)
+        if ENV == 'prod' and GOOGLE_API:
+            # In production, use credentials from environment variable
+            client_config = json.loads(GOOGLE_API)
+            flow = InstalledAppFlow.from_client_config(
+                client_config, SCOPES)
+        else:
+            # In development, use credentials from file
+            flow = InstalledAppFlow.from_client_secrets_file(
+                'credentials.json', SCOPES)
+            
         # Store the token in browser state
         creds = flow.run_local_server(port=0)
         sheets_service, drive_service = create_services(creds)
