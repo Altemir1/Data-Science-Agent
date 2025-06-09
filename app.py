@@ -49,8 +49,7 @@ def auth(token):
             # In development, use credentials from file
             flow = InstalledAppFlow.from_client_secrets_file(
                 'credentials.json', SCOPES)
-            
-        # Store the token in browser state
+
         creds = flow.run_local_server(port=0)
         sheets_service, drive_service = create_services(creds)
         if sheets_service and drive_service:
@@ -92,8 +91,7 @@ def refresh(token):
 
 if __name__ == "__main__":
     with gr.Blocks() as demo:
-        # Initialize states
-        token = gr.BrowserState(None, storage_key="token")
+        token = gr.State(None)
         sheets_service = gr.State(None)
         drive_service = gr.State(None)
         df = gr.State(None)
