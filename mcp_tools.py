@@ -80,10 +80,10 @@ def create_spreadsheet(sheets_service: Resource, title: str) -> Optional[str]:
         return None
 
 
-def upload_to_drive(drive_service: Resource, 
-                   file_path: str, 
-                   mime_type: str,
-                   folder_id: Optional[str] = None) -> Optional[str]:
+def upload_to_drive(drive_service: Resource,
+                    file_path: str,
+                    mime_type: str,
+                    folder_id: Optional[str] = None) -> Optional[str]:
     """
     Upload a file to Google Drive.
 
@@ -102,12 +102,12 @@ def upload_to_drive(drive_service: Resource,
             file_metadata['parents'] = [folder_id]
 
         with open(file_path, 'rb') as file:
-            media = MediaIoBaseUpload(file, 
-                                    mimetype=mime_type,
-                                    resumable=True)
+            media = MediaIoBaseUpload(file,
+                                      mimetype=mime_type,
+                                      resumable=True)
             file = drive_service.files().create(body=file_metadata,
-                                              media_body=media,
-                                              fields='id').execute()
+                                                media_body=media,
+                                                fields='id').execute()
         return file.get('id')
     except Exception as e:
         print(f"Error uploading file: {str(e)}")
@@ -115,9 +115,9 @@ def upload_to_drive(drive_service: Resource,
 
 
 def write_to_sheet(sheets_service: Resource,
-                  spreadsheet_id: str,
-                  data: List[List[Any]],
-                  range_name: str = 'Sheet1!A1') -> bool:
+                   spreadsheet_id: str,
+                   data: List[List[Any]],
+                   range_name: str = 'Sheet1!A1') -> bool:
     """
     Write data to a Google Spreadsheet.
 
@@ -164,14 +164,14 @@ def read_sheet(sheets_service: Resource,
             spreadsheetId=spreadsheet_id,
             range=range_name).execute()
         values = result.get('values', [])
-        
+
         if not values:
             return None
-            
+
         # Assume first row as headers
         headers = values[0]
         data = values[1:]
-        
+
         return pd.DataFrame(data, columns=headers)
     except Exception as e:
         print(f"Error reading sheet: {str(e)}")
@@ -198,25 +198,25 @@ def list_files(drive_service: Resource,
             query.append(f"'{folder_id}' in parents")
         if file_type:
             query.append(f"mimeType='{file_type}'")
-        
+
         query_string = ' and '.join(query) if query else ''
-        
+
         results = []
         page_token = None
-        
+
         while True:
             response = drive_service.files().list(
                 q=query_string,
                 spaces='drive',
                 fields='nextPageToken, files(id, name, mimeType)',
                 pageToken=page_token).execute()
-                
+
             results.extend(response.get('files', []))
             page_token = response.get('nextPageToken')
-            
+
             if not page_token:
                 break
-                
+
         return results
     except Exception as e:
         print(f"Error listing files: {str(e)}")
